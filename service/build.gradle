@@ -1,0 +1,28 @@
+plugins {
+    id 'de.markovic.modular.kotlin-jakartaee-web-conventions'
+    id "org.jetbrains.kotlin.plugin.allopen" version "1.4.31"
+    id 'war'
+}
+
+// Set to "ROOT" because only then the "Context Root" of the created
+// UberJar is set to "/" instead of the name of the created .war-File.
+archivesBaseName = "ROOT"
+
+allOpen {
+    // The Bean annotation must be added here or every class annotated
+    // with a managed bean annotation must be open and all its methods.
+    annotation("javax.ejb.Stateless")
+    annotation("javax.enterprise.context.RequestScoped")
+}
+
+dependencies {
+    implementation project(':api')
+    // Need MariaDB Connector/J as implementation dependency so it will
+    // be deployed as a .jar to the Application Server "Payara Micro"
+    implementation('org.mariadb.jdbc:mariadb-java-client:2.7.2')
+}
+
+// To avoid that the version number is concatenated after the project name.
+tasks.withType(War) {
+    archiveFileName.set("${archivesBaseName}.war")
+}

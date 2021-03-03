@@ -1,0 +1,8 @@
+plugins {
+    // Apply the common convention plugin for shared build configuration between library and application projects.
+    id 'de.markovic.modular.kotlin-common-conventions'
+}
+
+dependencies {
+    compileOnly('javax:javaee-web-api:8.0.1')
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="JPAHomeSpaceDatasourcePU" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <!-- Name of the data source which is used as this persistence unit. -->
+        <jta-data-source>java:global/HomeSpaceDatasource</jta-data-source>
+<!--        <class>de.markovic.homespace.service.UserEntity</class>-->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <!-- Following properties which enable the schema generation. -->
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            <property name="eclipselink.target-database" value="MySQL"/>
+<!--            <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>-->
+<!--            <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/homespace"/>-->
+<!--            <property name="jakarta.persistence.jdbc.user" value="hs"/>-->
+<!--            <property name="jakarta.persistence.jdbc.password" value="hs"/>-->
+<!--            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>-->
+<!--            <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>-->
+<!--            <property name="javax.persistence.schema-generation.scripts.create-target" value="create.sql"/>-->
+<!--            <property name="javax.persistence.schema-generation.scripts.drop-target" value="drop.sql"/>-->
+<!--            <property name="eclipselink.deploy-on-startup" value="true"/>-->
+        </properties>
+    </persistence-unit>
+</persistence>
