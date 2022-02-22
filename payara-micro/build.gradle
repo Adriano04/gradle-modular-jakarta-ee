@@ -1,14 +1,15 @@
 /**
  * Script used to fetch the Payara Micro .jar from MavenCentral.
  */
+plugins {
+    id 'de.markovic.modular.global-variables'
+}
 
 repositories {
     mavenCentral()
 }
 
 description = 'Digitall-Pro Test Payara Micro'
-
-def versionPayara = '5.2022.1'
 
 // define a special configuration
 configurations {

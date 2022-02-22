@@ -20,9 +20,30 @@ dependencies {
     // Need MariaDB Connector/J as implementation dependency so it will
     // be deployed as a .jar to the Application Server "Payara Micro"
     implementation('org.mariadb.jdbc:mariadb-java-client:2.7.2')
+    providedCompile("fish.payara.extras:payara-micro:${versionPayara}")
 }
 
 // To avoid that the version number is concatenated after the project name.
 tasks.withType(War) {
     archiveFileName.set("${archivesBaseName}.war")
+}
+
+task runMicro(type: Exec, dependsOn: war) {
+    def payaraJarPath = configurations
+            .providedCompile
+            .find {it.name =~ /payara-micro.*\.jar/}
+            .absolutePath
+    def warFile = war.archivePath
+    commandLine('java', '-jar', payaraJarPath, '--deploy', warFile)
+}
+
+// Create a runnable UberJar.
+task uberJar(type: Exec, dependsOn: war) {
+    def payaraJarPath = configurations
+            .providedCompile
+            .find {it.name =~ /payara-micro.*\.jar/}
+            .absolutePath
+    def warFile = war.archivePath
+    def uberJarPath = warFile.path.replaceAll(/\.war$/, '.jar').replace('ROOT', 'service')
+    commandLine('java', '-jar', payaraJarPath, '--deploy', warFile, '--outputUberJar', uberJarPath)
 }
