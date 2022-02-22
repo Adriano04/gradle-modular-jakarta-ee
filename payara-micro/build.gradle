@@ -1,0 +1,33 @@
+/**
+ * Script used to fetch the Payara Micro .jar from MavenCentral.
+ */
+
+repositories {
+    mavenCentral()
+}
+
+description = 'Digitall-Pro Test Payara Micro'
+
+def versionPayara = '5.2022.1'
+
+// define a special configuration
+configurations {
+    payara
+}
+
+dependencies {
+    payara "fish.payara.extras:payara-micro:${versionPayara}"
+}
+
+// unpack the wildfly dependencies into the project directory
+task resolvePayaraMicro(type: Copy) {
+    from { configurations.payara.singleFile }
+    into file("${project.projectDir}")
+}
+
+// add a task to enable the manual removal of the wildfly container
+tasks.register("cleanPayaraMicro") {
+	doLast {
+		 delete "${project.projectDir}/payara-micro-${versionPayara}.jar"
+	}
+}

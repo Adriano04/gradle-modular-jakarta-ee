@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'gradle-modular-jakarta-ee'
-include('api', 'service')
+include('api', 'service', 'payara-micro')
